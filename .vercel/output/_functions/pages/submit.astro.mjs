@@ -1,4 +1,4 @@
-import { e as createComponent, k as renderHead, r as renderTemplate, l as renderScript, h as createAstro } from '../chunks/astro/server_d30vpj_X.mjs';
+import { e as createComponent, k as renderHead, r as renderTemplate, l as renderScript, h as createAstro } from '../chunks/astro/server_CxrRaeHu.mjs';
 import 'piccolore';
 import 'clsx';
 /* empty css                                 */
@@ -23,7 +23,7 @@ const $$Submit = createComponent(async ($$result, $$props, $$slots) => {
       if (!text || !guestName) {
         error = "Please fill in all required fields.";
       } else {
-        const { createPrompt } = await import('../chunks/db_Bscd1bOd.mjs');
+        const { createPrompt } = await import('../chunks/db_zlFVlrBb.mjs');
         await createPrompt({
           text,
           guest_name: guestName,

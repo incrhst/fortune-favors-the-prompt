@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime.D_zvdyIk.js";import"./index.DYrVU9rO.js";import{u as a}from"./index.UAoeNl1H.js";import{activeTab as o}from"./uiStore.trYLhbNb.js";function s({children:t}){return a(o)!=="local"?null:r.jsx(r.Fragment,{children:t})}export{s as default};

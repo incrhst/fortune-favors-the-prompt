@@ -11,5 +11,7 @@
     <h1>Debug Page Works!</h1>
     <p>If you can see this, the latest deployment is live.</p>
     <p>Time: {new Date().toISOString()}</p>
+    <p>Database URL Configured: {import.meta.env.DATABASE_URL || process.env.DATABASE_URL ? '✅ Yes' : '❌ No'}</p>
+    <p>AI Gateway Key Configured: {import.meta.env.VERCEL_AI_GATEWAY_API_KEY || process.env.VERCEL_AI_GATEWAY_API_KEY ? '✅ Yes' : '❌ No'}</p>
 </body>
 </html>

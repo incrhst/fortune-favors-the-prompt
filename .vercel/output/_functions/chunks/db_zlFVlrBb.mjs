@@ -1,6 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 
-const sql = neon("postgresql://neondb_owner:npg_q0ITkw7iGunU@ep-gentle-king-af7m37m3-pooler.c-2.us-west-2.aws.neon.tech/neondb?sslmode=require");
+const connectionString = "postgresql://neondb_owner:npg_q0ITkw7iGunU@ep-gentle-king-af7m37m3-pooler.c-2.us-west-2.aws.neon.tech/neondb?sslmode=require";
+const sql = neon(connectionString) ;
 async function getApprovedPrompts() {
   const rows = await sql`
     SELECT * FROM prompts 
