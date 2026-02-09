@@ -1,5 +1,41 @@
 import React, { useState } from 'react';
-import { Search, MessageSquare, Clock, Tag, X, ChevronRight } from 'lucide-react';
+import { Search, MessageSquare, Clock, Tag, X, ChevronRight, Copy, Check } from 'lucide-react';
+
+const CopyButton = ({ text, className = "", style = {} }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={className}
+      style={{
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        color: copied ? '#4caf50' : '#8b5c2e',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0.5rem',
+        borderRadius: '50%',
+        transition: 'all 0.2s ease',
+        ...style
+      }}
+      title="Copy prompt"
+      onMouseEnter={(e) => e.target.style.background = '#f5f1e8'}
+      onMouseLeave={(e) => e.target.style.background = 'transparent'}
+    >
+      {copied ? <Check size={18} /> : <Copy size={18} />}
+    </button>
+  );
+};
 
 const PromptLibrary = () => {
   const samplePrompts = [
@@ -238,6 +274,14 @@ const PromptLibrary = () => {
             }}>
               {prompt.category}
             </div>
+            <CopyButton
+              text={prompt.text}
+              style={{
+                float: 'right',
+                marginTop: '-0.5rem',
+                marginRight: '-0.5rem'
+              }}
+            />
 
             {/* Prompt Text */}
             <p style={{
@@ -382,6 +426,14 @@ const PromptLibrary = () => {
               fontWeight: '600'
             }}>
               {selectedPrompt.text}
+              <CopyButton
+                text={selectedPrompt.text}
+                style={{
+                  display: 'inline-flex',
+                  marginLeft: '0.5rem',
+                  verticalAlign: 'middle'
+                }}
+              />
             </h2>
 
             {/* Tags */}

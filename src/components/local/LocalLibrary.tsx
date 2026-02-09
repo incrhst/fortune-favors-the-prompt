@@ -18,6 +18,33 @@ export default function LocalLibrary() {
     // Prompt creation/editing state
     const [promptForm, setPromptForm] = useState({ text: '', category: '', tags: '' });
 
+    // Import shared data from URL
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const dataStr = params.get('data');
+        if (dataStr) {
+            try {
+                const json = decodeURIComponent(atob(dataStr));
+                const data = JSON.parse(json);
+                if (data.prompts && Array.isArray(data.prompts)) {
+                    if (confirm(`Import ${data.prompts.length} prompts and ${data.groups?.length || 0} groups?`)) {
+                        store.importData(data);
+                        // Clean URL
+                        const newUrl = window.location.pathname;
+                        window.history.replaceState({}, '', newUrl);
+                        // Switch to local tab if not already
+                        import('../../lib/uiStore').then(({ activeTab }) => {
+                            activeTab.set('local');
+                        });
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to import data:', e);
+                alert('Invalid share link.');
+            }
+        }
+    }, [store.isLoaded]); // Depend on store loaded so we can import
+
     const filteredPrompts = store.prompts.filter(p => {
         const matchesGroup = selectedGroupId ? p.groupId === selectedGroupId : true;
         const searchLower = searchTerm.toLowerCase();
