@@ -1,6 +1,6 @@
 import { neon } from '@neondatabase/serverless';
 
-const connectionString = import.meta.env.DATABASE_URL;
+const connectionString = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
 
 const sql = connectionString
   ? neon(connectionString)
@@ -43,7 +43,7 @@ export async function getPromptById(id: string): Promise<Prompt | null> {
   const rows = await sql`
     SELECT * FROM prompts WHERE id = ${id}
   `;
-  return rows[0] as Prompt || null;
+  return (rows as any[])[0] as Prompt || null;
 }
 
 export async function getDiscussionsByPromptId(promptId: string): Promise<Discussion[]> {
@@ -68,7 +68,7 @@ export async function createPrompt(data: {
     VALUES (${data.text}, ${data.suggested_title || null}, ${data.category || null}, ${data.tags || []}, ${data.guest_name}, ${data.guest_email || null}, 'pending')
     RETURNING *
   `;
-  return rows[0] as Prompt;
+  return (rows as any[])[0] as Prompt;
 }
 
 export async function addDiscussion(data: {
@@ -81,5 +81,5 @@ export async function addDiscussion(data: {
     VALUES (${data.prompt_id}, ${data.author}, ${data.text})
     RETURNING *
   `;
-  return rows[0] as Discussion;
+  return (rows as any[])[0] as Discussion;
 }
