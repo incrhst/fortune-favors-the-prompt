@@ -1,17 +1,147 @@
 ---
+import '../styles/global.css';
+import { getApprovedPrompts, type Prompt } from '../lib/db';
 
+let prompts: Prompt[] = [];
+let error = '';
+
+try {
+  prompts = await getApprovedPrompts();
+} catch (e) {
+  error = 'Failed to load prompts. Please try again later.';
+  console.error(e);
+}
+
+function formatTimeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMins / 60);
+  const diffDays = Math.floor(diffHours / 24);
+  
+  if (diffDays > 0) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+  if (diffHours > 0) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  if (diffMins > 0) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+  return 'Just now';
+}
 ---
 
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="description" content="A curated library of AI prompts submitted by show guests for discussion and inspiration.">
+  <title>Prompt Library | Guest Submissions</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Prompt Library</h1>
+      <p>Your collection of prompts, ready to revisit and refine</p>
+      <nav>
+        <a href="/" class="active">Library</a>
+        <a href="/submit">Submit a Prompt</a>
+      </nav>
+    </header>
+
+    <!-- Search -->
+    <div class="search-container">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input 
+        type="text" 
+        id="search" 
+        placeholder="Search prompts, categories, or tags..."
+      />
+    </div>
+
+    {error && (
+      <div class="card" style="text-align: center; color: #ef4444;">
+        {error}
+      </div>
+    )}
+
+    {prompts.length === 0 && !error && (
+      <div class="card" style="text-align: center;">
+        <h3>No prompts yet!</h3>
+        <p style="margin: 1rem 0; color: var(--brown-medium);">
+          Be the first to <a href="/submit" style="color: var(--brown-accent);">submit a prompt</a> for discussion.
+        </p>
+      </div>
+    )}
+
+    <!-- Prompts Grid -->
+    <div class="prompt-grid" id="prompts-grid">
+      {prompts.map((prompt, index) => (
+        <a 
+          href={`/prompt/${prompt.id}`} 
+          class="card animate-in prompt-card"
+          style={`animation-delay: ${index * 0.1}s; text-decoration: none; color: inherit; cursor: pointer;`}
+          data-text={prompt.text.toLowerCase()}
+          data-category={prompt.category?.toLowerCase() || ''}
+          data-tags={prompt.tags?.join(' ').toLowerCase() || ''}
+        >
+          {prompt.category && (
+            <span class="badge" style="margin-bottom: 1rem;">
+              {prompt.category}
+            </span>
+          )}
+          
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.75rem; line-height: 1.4;">
+            {prompt.suggested_title || prompt.text.slice(0, 60) + '...'}
+          </h3>
+          
+          <p style="color: var(--brown-medium); font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1rem;">
+            {prompt.text}
+          </p>
+          
+          {prompt.tags && prompt.tags.length > 0 && (
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+              {prompt.tags.slice(0, 3).map(tag => (
+                <span class="tag">#{tag}</span>
+              ))}
+            </div>
+          )}
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+            <span class="meta">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              {formatTimeAgo(prompt.created_at)}
+            </span>
+            <span class="meta" style="color: var(--brown-accent);">
+              by {prompt.guest_name}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('search');
+    const grid = document.getElementById('prompts-grid');
+    const cards = grid?.querySelectorAll('.prompt-card');
+
+    searchInput?.addEventListener('input', (e) => {
+      const term = (e.target as HTMLInputElement).value.toLowerCase();
+      
+      cards?.forEach(card => {
+        const text = card.getAttribute('data-text') || '';
+        const category = card.getAttribute('data-category') || '';
+        const tags = card.getAttribute('data-tags') || '';
+        
+        const matches = text.includes(term) || category.includes(term) || tags.includes(term);
+        (card as HTMLElement).style.display = matches ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
 </html>
