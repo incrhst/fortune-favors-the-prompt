@@ -1,0 +1,11 @@
+title,prompt,context,collections
+Code Review Request,Analyze this Python function for performance bottlenecks and suggest optimizations focusing on time complexity,Working on a data processing pipeline that handles millions of records,Work;Development
+Weekly Meal Plan,Create a high-protein vegetarian meal plan for busy professionals with limited cooking time,Need to prep meals on Sundays for the whole week,Personal;Health
+Market Analysis,Write a comprehensive market analysis for sustainable fashion startups targeting Gen Z consumers,Preparing investor pitch deck for Q2 2024,Work;Research
+Physics Explanation,Explain quantum entanglement to a high school student using everyday analogies,Creating educational content for YouTube channel,Education;Content Creation
+Email Draft,Draft a persuasive email to potential investors highlighting our AI analytics platform's value proposition,Series A fundraising round starting next month,Work;Fundraising
+React Debugging,Debug this React component causing memory leaks when unmounting - check event listeners and API calls,Production app experiencing performance issues after recent deploy,Work;Development;Urgent
+Content Strategy,Develop a 3-month content strategy for a B2B SaaS company in the project management space,,Work;Marketing
+API Documentation,Write comprehensive API documentation for our REST endpoints including examples and error handling,,Work;Development;Documentation
+UX Feedback,Review this user flow and suggest improvements for reducing friction in the onboarding process,Mobile app has 60% drop-off rate during signup,Work;Design;Urgent
+Database Optimization,Suggest database schema optimizations for handling high-volume time-series data,PostgreSQL database reaching capacity limits,Work;Development;Infrastructure

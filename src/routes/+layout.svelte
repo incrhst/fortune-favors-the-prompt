@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/stores/theme';
+	import { setAuth } from '$lib/stores/auth';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import UserMenu from '$lib/components/UserMenu.svelte';
 	import '../styles/global.css';
-	let { children } = $props();
+	
+	let { children, data } = $props();
 
 	onMount(() => {
 		theme.init();
+		setAuth(data.user);
 	});
 </script>
 
 <div class="fixed-theme-toggle">
+    <UserMenu />
 	<ThemeToggle />
 </div>
 

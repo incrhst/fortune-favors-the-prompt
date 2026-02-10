@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { activeTab } from '$lib/stores/ui';
+    import { auth } from '$lib/stores/auth';
 	import LibraryTabs from '$lib/components/LibraryTabs.svelte';
 	import LocalLibrary from '$lib/components/local/LocalLibrary.svelte';
-	import { Clock, User } from 'lucide-svelte';
+	import { Clock, User, GitFork, Star, Verified } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
 	let { data } = $props();
 
@@ -26,37 +28,54 @@
 		data.prompts.filter((prompt: any) => {
 			const term = searchTerm.toLowerCase();
 			return (
-				prompt.text.toLowerCase().includes(term) ||
-				(prompt.suggested_title || '').toLowerCase().includes(term) ||
+				(prompt.title || '').toLowerCase().includes(term) ||
+                (prompt.description || '').toLowerCase().includes(term) ||
 				(prompt.category || '').toLowerCase().includes(term) ||
 				(prompt.tags || []).some((t: string) => t.toLowerCase().includes(term))
 			);
 		})
 	);
+
+    async function forkPrompt(gistId: string) {
+        if (!$auth.user) {
+            window.location.href = '/auth/login';
+            return;
+        }
+
+        try {
+            const res = await fetch(`/api/library/fork/${gistId}`, { method: 'POST' });
+            if (res.ok) {
+                // Success - we might want to show a toast or change the tab
+                alert('Prompt forked to your personal library!');
+            }
+        } catch (e) {
+            console.error('Fork failed', e);
+        }
+    }
 </script>
 
 <svelte:head>
-	<title>Prompt Library | Guest Submissions</title>
+	<title>Prompt Library | Curated Community</title>
 	<meta
 		name="description"
-		content="A curated library of AI prompts submitted by show guests for discussion and inspiration."
+		content="Discover the top 5% of AI prompts curated by the community for high-quality results."
 	/>
 </svelte:head>
 
 <div class="container">
 	<header>
 		<h1>Favored Prompts</h1>
-		<p>Your collection of prompts, ready to revisit and refine</p>
+		<p>Discover and save the world's most effective AI prompts</p>
 		<nav>
 			<a href="/" class="active">Library</a>
-			<a href="/submit">Submit a Prompt</a>
+			<a href="/submit">Submit for Curation</a>
 		</nav>
 	</header>
 
 	<LibraryTabs />
 
 	{#if $activeTab === 'community'}
-		<div id="community-view">
+		<div id="community-view" in:fade>
 			<!-- Search -->
 			<div class="search-container">
 				<svg
@@ -74,23 +93,21 @@
 				<input
 					type="text"
 					bind:value={searchTerm}
-					placeholder="Search prompts, categories, or tags..."
+					placeholder="Search curated prompts, categories, or tags..."
 				/>
 			</div>
 
 			{#if data.error}
-				<div class="card" style="text-align: center; color: #ef4444;">
+				<div class="card error-card">
 					{data.error}
 				</div>
 			{/if}
 
 			{#if filteredPrompts.length === 0 && !data.error}
-				<div class="card" style="text-align: center;">
-					<h3>No prompts yet!</h3>
-					<p style="margin: 1rem 0; color: var(--brown-medium);">
-						Be the first to <a href="/submit" style="color: var(--brown-accent);"
-							>submit a prompt</a
-						> for discussion.
+				<div class="card empty-card">
+					<h3>No curated prompts found</h3>
+					<p>
+						Adjust your search or <a href="/submit" class="accent-link">nominate a prompt</a>.
 					</p>
 				</div>
 			{/if}
@@ -98,44 +115,55 @@
 			<!-- Prompts Grid -->
 			<div class="prompt-grid">
 				{#each filteredPrompts as prompt, index (prompt.id)}
-					<a
-						href="/prompt/{prompt.id}"
+					<div
 						class="prompt-card animate-in"
-						style="animation-delay: {index * 0.1}s;"
+						style="animation-delay: {index * 0.05}s;"
 					>
-						{#if prompt.category}
-							<div class="badge">
-								{prompt.category}
-							</div>
-						{/if}
+                        <div class="card-header">
+                            {#if prompt.category}
+                                <span class="badge">
+                                    {prompt.category}
+                                </span>
+                            {/if}
+                            {#if prompt.is_verified}
+                                <span class="verified-icon" title="Verified Quality">
+                                    <Verified size={18} />
+                                </span>
+                            {/if}
+                        </div>
 
-						<h3 class="prompt-title">
-							{prompt.suggested_title || prompt.text.slice(0, 60) + '...'}
-						</h3>
+						<a href="/community/prompt/{prompt.gist_id}" class="prompt-link">
+                            <h3 class="prompt-title">
+                                {prompt.title}
+                            </h3>
 
-						<p class="prompt-text">
-							{prompt.text}
-						</p>
+                            <p class="prompt-description">
+                                {prompt.description || 'No description provided.'}
+                            </p>
+                        </a>
 
 						{#if prompt.tags && prompt.tags.length > 0}
 							<div class="tags-container">
-								{#each prompt.tags.slice(0, 3) as tag}
+								{#each prompt.tags.slice(0, 4) as tag}
 									<span class="tag">#{tag}</span>
 								{/each}
 							</div>
 						{/if}
 
 						<div class="card-footer">
-							<span class="meta">
-								<Clock size={14} />
-								{formatTimeAgo(prompt.created_at)}
-							</span>
-							<span class="author">
-								<User size={14} />
-								by {prompt.guest_name}
-							</span>
+							<div class="author-info">
+								<img src={prompt.author_avatar_url || 'https://github.com/identicons/null.png'} alt={prompt.author_username} class="mini-avatar" />
+								<span class="author-name">@{prompt.author_username}</span>
+							</div>
+                            
+                            <div class="actions">
+                                <button class="action-btn fork" onclick={() => forkPrompt(prompt.gist_id)}>
+                                    <GitFork size={16} />
+                                    <span>Fork</span>
+                                </button>
+                            </div>
 						</div>
-					</a>
+					</div>
 				{/each}
 			</div>
 		</div>
@@ -145,7 +173,6 @@
 </div>
 
 <style>
-	/* Use the existing styles from global.css, but adding some local overrides if needed */
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -185,11 +212,7 @@
 	}
 
 	nav a:hover, nav a.active {
-		background: var(--brown-accent);
-		color: white;
-	}
-
-	nav a.active:hover {
+		background: var(--primary-color);
 		color: white;
 	}
 
@@ -203,72 +226,89 @@
 		left: 1rem;
 		top: 50%;
 		transform: translateY(-50%);
-		color: var(--brown-medium);
+		color: var(--text-muted);
 		pointer-events: none;
 	}
 
 	.search-container input {
 		width: 100%;
 		padding: 1rem 1rem 1rem 3rem;
-		border-radius: 12px;
-		border: 1px solid var(--border-light);
-		background: white;
+		border-radius: 1rem;
+		border: 1px solid var(--border-color);
+		background: var(--bg-secondary);
 		font-size: 1rem;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 		transition: all 0.2s ease;
 		box-sizing: border-box;
 	}
 
 	.search-container input:focus {
 		outline: none;
-		border-color: var(--brown-accent);
-		box-shadow: 0 0 0 4px rgba(139, 92, 46, 0.1);
+		border-color: var(--primary-color);
+		box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.1);
+        background: var(--bg-primary);
 	}
 
 	.prompt-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 1.5rem;
 	}
 
 	.prompt-card {
-		background: var(--surface-card);
-		border-radius: 24px;
-		padding: 2rem;
-		border: 1px solid var(--border-light);
+		background: var(--bg-secondary);
+		border-radius: 1.5rem;
+		padding: 1.75rem;
+		border: 1px solid var(--border-color);
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
 		height: 100%;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 	}
 
 	.prompt-card:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-		border-color: var(--brown-accent);
+		transform: translateY(-6px);
+		box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.15);
+		border-color: var(--primary-color);
+        background: var(--bg-primary);
 	}
 
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
+
 	.badge {
-		background: var(--bg-secondary);
-		color: var(--brown-accent);
-		padding: 0.4rem 0.8rem;
+		background: rgba(var(--primary-color-rgb), 0.1);
+		color: var(--primary-color);
+		padding: 0.35rem 0.75rem;
 		border-radius: 100px;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		font-weight: 600;
-		width: fit-content;
-		margin-bottom: 1.5rem;
 	}
+
+    .verified-icon {
+        color: #3b82f6;
+    }
 
 	.prompt-title {
 		font-size: 1.25rem;
 		margin-bottom: 0.75rem;
 		line-height: 1.4;
 		color: var(--text-primary);
+        font-weight: 700;
 	}
 
-	.prompt-text {
-		font-size: 1rem;
+    .prompt-link {
+        text-decoration: none;
+        display: block;
+        flex-grow: 1;
+    }
+
+	.prompt-description {
+		font-size: 0.9375rem;
 		color: var(--text-secondary);
 		line-height: 1.6;
 		margin-bottom: 1.5rem;
@@ -288,57 +328,85 @@
 
 	.tag {
 		color: var(--text-muted);
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		font-weight: 500;
-		background: var(--bg-secondary);
+		background: var(--bg-tertiary);
 		padding: 0.2rem 0.6rem;
 		border-radius: 6px;
-	}
-
-	.meta {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-		font-size: 0.85rem;
-		color: var(--brown-medium);
 	}
 
 	.card-footer {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 1.5rem;
-		border-top: 1px solid var(--border-light);
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border-color);
 	}
 
-	.author {
+	.author-info {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.625rem;
+	}
+
+    .mini-avatar {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+    }
+
+	.author-name {
 		color: var(--text-secondary);
-		font-size: 0.9rem;
+		font-size: 0.875rem;
 		font-weight: 500;
 	}
 
-	.view-link {
-		color: var(--brown-accent);
-		font-weight: 600;
-		text-decoration: none;
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		font-size: 0.9rem;
-	}
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--border-color);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+        background: var(--bg-hover);
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
 
 	.animate-in {
-		animation: slideUp 0.5s ease forwards;
+		animation: slideUp 0.4s ease forwards;
 		opacity: 0;
 	}
+
+    .error-card {
+        text-align: center;
+        color: #ef4444;
+        padding: 2rem;
+    }
+
+    .empty-card {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .accent-link {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
 
 	@keyframes slideUp {
 		from {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: translateY(15px);
 		}
 		to {
 			opacity: 1;
