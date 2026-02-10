@@ -258,13 +258,6 @@
                     <span>Syncing with GitHub</span>
                 </div>
             {/if}
-
-            <div class="csv-info">
-                <a href="/csv_guide.md" target="_blank" class="info-link">
-                    <MoreVertical size={14} />
-                    <span>CSV Import Format</span>
-                </a>
-            </div>
 		</aside>
 
 		<!-- Main -->
@@ -288,10 +281,15 @@
                         onchange={handleCsvImport}
                         style="display: none"
                     />
-                    <button onclick={() => fileInput?.click()} title="Import CSV" class="btn-outline">
-                        <FileUp size={18} />
-                        <span>Import</span>
-                    </button>
+                    <div class="import-group">
+                        <button onclick={() => fileInput?.click()} title="Import CSV" class="btn-outline">
+                            <FileUp size={18} />
+                            <span>Import</span>
+                        </button>
+                        <a href="/csv-format" class="help-btn" title="CSV Format Guide">
+                            <HelpCircle size={16} />
+                        </a>
+                    </div>
                     <button
                         onclick={() => {
                             isCreating = true;
@@ -634,24 +632,29 @@
         50% { opacity: 0.5; }
     }
 
-    .csv-info {
-        margin-top: 1.5rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .info-link {
+    .import-group {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 0.8125rem;
-        transition: color 0.2s;
     }
 
-    .info-link:hover {
+    .help-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        transition: all 0.2s;
+    }
+
+    .help-btn:hover {
         color: var(--primary-color);
+        border-color: var(--primary-color);
+        background: var(--bg-hover);
     }
 
 	.toolbar { display: flex; gap: 1rem; margin-bottom: 2.5rem; align-items: center; }
