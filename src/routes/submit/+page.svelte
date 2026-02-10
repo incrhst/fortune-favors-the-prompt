@@ -263,9 +263,9 @@
 	textarea:focus,
 	input:focus {
 		outline: none;
-		border-color: var(--primary-color);
+		border-color: var(--brown-accent);
 		background: var(--bg-primary);
-        box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.1);
+        box-shadow: 0 0 0 4px rgba(139, 92, 46, 0.1);
 	}
 
 	.ai-suggestion-container {
@@ -281,7 +281,7 @@
 		align-items: center;
 		gap: 0.75rem;
 		font-size: 0.875rem;
-		color: var(--primary-color);
+		color: var(--brown-accent);
 		margin-bottom: 1.5rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -306,7 +306,7 @@
 		width: 24px;
 		height: 24px;
 		border: 3px solid var(--border-color);
-		border-top-color: var(--primary-color);
+		border-top-color: var(--brown-accent);
 		border-radius: 50%;
 		animation: spin 1s linear infinite;
 	}
@@ -327,7 +327,7 @@
 	.btn-submit {
 		width: 100%;
 		padding: 1.25rem;
-		background: var(--primary-color);
+		background: var(--brown-accent);
 		color: white;
 		border: none;
 		border-radius: 1.25rem;
@@ -339,15 +339,35 @@
 		justify-content: center;
 		gap: 0.75rem;
 		transition: all 0.3s;
-        box-shadow: 0 10px 20px -5px rgba(var(--primary-color-rgb), 0.3);
+        box-shadow: 0 10px 20px -5px rgba(139, 92, 46, 0.3);
         margin-top: 1rem;
 	}
 
 	.btn-submit:hover {
 		transform: translateY(-3px);
-        box-shadow: 0 15px 30px -8px rgba(var(--primary-color-rgb), 0.4);
+        box-shadow: 0 15px 30px -8px rgba(139, 92, 46, 0.4);
         filter: brightness(1.1);
 	}
+    
+    .btn-primary {
+		padding: 1rem 2.5rem;
+		background: var(--brown-accent);
+		color: white;
+		border: none;
+		border-radius: 1rem;
+		font-size: 1rem;
+		font-weight: 700;
+		cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(139, 92, 46, 0.2);
+        transition: all 0.2s;
+	}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(139, 92, 46, 0.3);
+    }
 
 	.success-message {
 		text-align: center;

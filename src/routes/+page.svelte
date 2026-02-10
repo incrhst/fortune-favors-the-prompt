@@ -198,23 +198,34 @@
 
 	nav {
 		display: flex;
-		gap: 1rem;
-		margin-top: 1.5rem;
+		gap: 0.75rem;
+		margin-top: 2rem;
 	}
 
 	nav a {
 		text-decoration: none;
 		color: var(--text-secondary);
 		font-weight: 600;
-		padding: 0.5rem 1rem;
-		border-radius: 8px;
-		transition: all 0.2s ease;
+		padding: 0.625rem 1.25rem;
+		border-radius: 100px;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 0.9375rem;
+        border: 1px solid var(--border-medium);
+        background: var(--bg-secondary);
 	}
 
-	nav a:hover, nav a.active {
-		background: var(--primary-color);
-		color: white;
+	nav a:hover {
+        background: var(--border-medium);
+        color: var(--text-primary);
+        transform: translateY(-1px);
 	}
+
+    nav a.active {
+		background: var(--brown-accent);
+		color: white;
+        border-color: var(--brown-accent);
+        box-shadow: 0 4px 12px rgba(139, 92, 46, 0.2);
+    }
 
 	.search-container {
 		position: relative;
