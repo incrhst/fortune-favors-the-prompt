@@ -5,14 +5,14 @@
 
 <div class="tabs-container">
     <button 
-        onclick={() => activeTab.set('community')} 
+        on:click={() => activeTab.set('community')} 
         class:active={$activeTab === 'community'}
     >
         <Library size={18} />
         Community
     </button>
     <button 
-        onclick={() => activeTab.set('local')} 
+        on:click={() => activeTab.set('local')} 
         class:active={$activeTab === 'local'}
     >
         <FolderHeart size={18} />

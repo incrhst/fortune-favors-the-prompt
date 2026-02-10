@@ -198,14 +198,14 @@
 		<aside class="sidebar">
 			<div class="sidebar-header">
 				<h3>Collections</h3>
-				<button onclick={() => (newCollectionModalOpen = true)} class="icon-btn" title="New Collection">
+				<button on:click={() => (newCollectionModalOpen = true)} class="icon-btn" title="New Collection">
 					<Plus size={18} />
 				</button>
 			</div>
 
 			<ul class="collection-list">
 				<li
-					onclick={() => (selectedCollectionId = undefined)}
+					on:click={() => (selectedCollectionId = undefined)}
 					class:active={selectedCollectionId === undefined}
 				>
 					<span>All Prompts</span>
@@ -213,7 +213,7 @@
 				</li>
 				{#each $localStore.collections as collection}
 					<li
-						onclick={() => (selectedCollectionId = collection.id)}
+						on:click={() => (selectedCollectionId = collection.id)}
 						class:active={selectedCollectionId === collection.id}
 					>
                         <div class="collection-info">
@@ -223,7 +223,7 @@
 						<div class="collection-actions">
                             <span class="count">{$localStore.prompts.filter(p => p.collectionIds.includes(collection.id)).length}</span>
 							<button
-								onclick={(e) => {
+								on:click={(e) => {
 									e.stopPropagation();
 									if (confirm('Delete collection?')) localStore.deleteCollection(collection.id);
 								}}
@@ -246,8 +246,8 @@
                         onkeydown={(e) => e.key === 'Enter' && handleCreateCollection()}
 					/>
 					<div class="modal-actions">
-						<button class="btn-primary-sm" onclick={handleCreateCollection}>Create</button>
-						<button class="btn-ghost-sm" onclick={() => (newCollectionModalOpen = false)}>Cancel</button>
+						<button class="btn-primary-sm" on:click={handleCreateCollection}>Create</button>
+						<button class="btn-ghost-sm" on:click={() => (newCollectionModalOpen = false)}>Cancel</button>
 					</div>
 				</div>
 			{/if}
@@ -282,7 +282,7 @@
                         style="display: none"
                     />
                     <div class="import-group">
-                        <button onclick={() => fileInput?.click()} title="Import CSV" class="btn-outline">
+                        <button on:click={() => fileInput?.click()} title="Import CSV" class="btn-outline">
                             <FileUp size={18} />
                             <span>Import</span>
                         </button>
@@ -291,7 +291,7 @@
                         </a>
                     </div>
                     <button
-                        onclick={() => {
+                        on:click={() => {
                             isCreating = true;
                             promptForm = { text: '', category: 'General', tags: '' };
                         }}
@@ -300,7 +300,7 @@
                         <Plus size={18} /> 
                         <span>New Prompt</span>
                     </button>
-                    <button onclick={handleShare} title="Share current view" class="btn-outline">
+                    <button on:click={handleShare} title="Share current view" class="btn-outline">
                         <Share2 size={18} />
                     </button>
                 </div>
@@ -326,8 +326,8 @@
 						/>
 					</div>
 					<div class="editor-actions">
-						<button class="btn-ghost" onclick={() => { isCreating = false; isEditing = null; }}>Cancel</button>
-						<button onclick={handleSavePrompt} class="btn-primary">Save Changes</button>
+						<button class="btn-ghost" on:click={() => { isCreating = false; isEditing = null; }}>Cancel</button>
+						<button on:click={handleSavePrompt} class="btn-primary">Save Changes</button>
 					</div>
 				</div>
 			{/if}
@@ -349,13 +349,13 @@
                             </div>
                             <div class="card-actions">
                                 {#if $auth.user && prompt.gistId}
-                                    <button class="nominate-btn" onclick={() => nominateToCommunity(prompt)} title="Nominate for curated community">
+                                    <button class="nominate-btn" on:click={() => nominateToCommunity(prompt)} title="Nominate for curated community">
                                         <Star size={16} />
                                     </button>
                                 {/if}
                                 <div class="popover-wrapper">
                                     <button 
-                                        onclick={() => activeCollectionPromptId = activeCollectionPromptId === prompt.id ? null : prompt.id} 
+                                        on:click={() => activeCollectionPromptId = activeCollectionPromptId === prompt.id ? null : prompt.id} 
                                         title="Add to Collection"
                                         class:active={activeCollectionPromptId === prompt.id}
                                     >
@@ -367,7 +367,7 @@
                                             {#each $localStore.collections as collection}
                                                 <button 
                                                     class="popover-item" 
-                                                    onclick={() => togglePromptCollection(prompt.id, collection.id)}
+                                                    on:click={() => togglePromptCollection(prompt.id, collection.id)}
                                                 >
                                                     <span class="dot-sm" style="background: {collection.color}"></span>
                                                     <span>{collection.name}</span>
@@ -381,7 +381,7 @@
                                             {/if}
                                             <button 
                                                 class="popover-add" 
-                                                onclick={() => {
+                                                on:click={() => {
                                                     newCollectionModalOpen = true;
                                                     activeCollectionPromptId = null;
                                                 }}
@@ -391,11 +391,11 @@
                                         </div>
                                     {/if}
                                 </div>
-                                <button onclick={() => startEdit(prompt)} title="Edit">
+                                <button on:click={() => startEdit(prompt)} title="Edit">
                                     <Edit2 size={16} />
                                 </button>
                                 <button
-                                    onclick={() => {
+                                    on:click={() => {
                                         if (confirm('Delete this prompt?')) localStore.deletePrompt(prompt.id);
                                     }}
                                     class="delete-btn"
@@ -658,6 +658,7 @@
     }
 
 	.toolbar { display: flex; gap: 1rem; margin-bottom: 2.5rem; align-items: center; }
+    .toolbar-actions { display: flex; gap: 0.75rem; align-items: center; }
 	.search-box { flex: 1; position: relative; }
 	.search-box input { 
         width: 100%; 
