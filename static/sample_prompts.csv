@@ -1,0 +1,5 @@
+title,text,category,tags,collections
+"Code Review","Analyze the following code for bugs and security vulnerabilities. Focus on performance and maintainability.","Development","code;review;security","Work;Projects"
+"Creative Writing","Generate a plot summary for a science fiction novel set on a Dyson sphere. Include three main character archetypes.","Creative","writing;scifi;plot","Personal"
+"Meeting Notes","Summarize the following meeting transcript. List all action items, owners, and deadlines.","Productivity","meeting;summary","Work"
+"SQL Optimization","Suggest three ways to optimize this PostgreSQL query for better performance on large datasets.","Database","sql;postgres;performance","Development"

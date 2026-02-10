@@ -258,6 +258,13 @@
                     <span>Syncing with GitHub</span>
                 </div>
             {/if}
+
+            <div class="csv-info">
+                <a href="/csv_guide.md" target="_blank" class="info-link">
+                    <MoreVertical size={14} />
+                    <span>CSV Import Format</span>
+                </a>
+            </div>
 		</aside>
 
 		<!-- Main -->
@@ -625,6 +632,26 @@
     @keyframes pulse {
         0%, 100% { opacity: 1; }
         50% { opacity: 0.5; }
+    }
+
+    .csv-info {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .info-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.8125rem;
+        transition: color 0.2s;
+    }
+
+    .info-link:hover {
+        color: var(--primary-color);
     }
 
 	.toolbar { display: flex; gap: 1rem; margin-bottom: 2.5rem; align-items: center; }
