@@ -3,7 +3,7 @@
 	import { localStore } from '$lib/stores/local';
 	import { auth } from '$lib/stores/auth';
 	import { activeTab } from '$lib/stores/ui';
-	import { Search, Plus, Trash2, Edit2, FolderPlus, Share2, RefreshCw, Cloud, Star, MoreVertical, FileUp } from 'lucide-svelte';
+	import { Search, Plus, Trash2, Edit2, FolderPlus, Share2, RefreshCw, Cloud, Star, MoreVertical, FileUp, HelpCircle } from 'lucide-svelte';
     import { fade, slide } from 'svelte/transition';
 
 	let searchTerm = $state('');

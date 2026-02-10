@@ -72,7 +72,7 @@
 				<div class="prompt-content">
 					<p>{prompt.description}</p>
                     <div class="code-block">
-                        <pre><code>{prompt.text || 'Loading content...'}</code></pre>
+                        <pre><code>{(prompt as any).text || 'Loading content...'}</code></pre>
                     </div>
 				</div>
 

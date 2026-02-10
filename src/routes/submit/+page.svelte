@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Sparkles, ArrowRight, CheckCircle, ChevronLeft } from 'lucide-svelte';
-    import { fade } from 'svelte/transition';
+    import { fade, slide } from 'svelte/transition';
 
 	let { form } = $props();
 
