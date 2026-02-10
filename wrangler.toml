@@ -1,7 +1,0 @@
-name = "prompt-library"
-compatibility_date = "2024-04-01"
-compatibility_flags = ["nodejs_compat"]
-
-[pages_build]
-command = "npm run build"
-output_dir = "dist"

@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --cream-bg: #fdfbf7;
+  --cream-dark: #f5f1e8;
+  --brown-dark: #2c1810;
+  --brown-medium: #6b5444;
+  --brown-accent: #8b5c2e;
+  --brown-light: #a67c52;
+  --brown-muted: #8b7355;
+  --border-light: #f0e6d6;
+  --border-medium: #e8dcc8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--cream-dark) 100%);
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--brown-dark);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Crimson Pro', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 30px rgba(139, 92, 46, 0.1);
+  border: 1px solid var(--border-light);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(139, 92, 46, 0.15);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brown-accent) 0%, var(--brown-light) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 46, 0.3);
+}
+
+.btn-secondary {
+  background: var(--cream-dark);
+  color: var(--brown-medium);
+}
+
+.btn-secondary:hover {
+  background: var(--brown-accent);
+  color: white;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--brown-accent) 0%, var(--brown-light) 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag {
+  background: var(--cream-dark);
+  color: var(--brown-medium);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--brown-accent);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Forms */
+input, textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-medium);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: 'Work Sans', sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--brown-accent);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--brown-medium);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Grid */
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Search */
+.search-container {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(139, 92, 46, 0.08);
+  border: 2px solid var(--border-medium);
+  margin-bottom: 2rem;
+}
+
+.search-container input {
+  padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+  border: none;
+  background: transparent;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brown-accent);
+}
+
+/* Meta info */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--brown-muted);
+  font-size: 0.85rem;
+}
+
+/* Header */
+header {
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  color: var(--brown-dark);
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: var(--brown-medium);
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+nav a {
+  color: var(--brown-accent);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+nav a:hover, nav a.active {
+  background: var(--brown-accent);
+  color: white;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* AI Suggestion Box */
+.ai-suggestion {
+  background: linear-gradient(135deg, rgba(139, 92, 46, 0.05) 0%, rgba(166, 124, 82, 0.1) 100%);
+  border: 2px dashed var(--brown-accent);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.ai-suggestion h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--brown-accent);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--brown-muted);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-medium);
+  border-top-color: var(--brown-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Discussion */
+.discussion-item {
+  background: var(--cream-bg);
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-light);
+}
+
+.discussion-item .author {
+  font-weight: 600;
+  color: var(--brown-accent);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Success message */
+.success-message {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .prompt-grid {
+    grid-template-columns: 1fr;
+  }
+}

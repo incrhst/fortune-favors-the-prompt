@@ -1,0 +1,25 @@
+{
+  "name": "absent-antimatter",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/react": "^4.4.2",
+    "@nanostores/react": "^1.0.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "ai": "^6.0.77",
+    "astro": "^5.17.1",
+    "lucide-react": "^0.563.0",
+    "nanostores": "^1.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^3.25.76"
+  }
+}

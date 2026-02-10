@@ -1,8 +1,9 @@
 import { neon } from '@neondatabase/serverless';
-import { DATABASE_URL } from '$env/static/private';
 
-const sql = DATABASE_URL
-  ? neon(DATABASE_URL)
+const connectionString = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
+
+const sql = connectionString
+  ? neon(connectionString)
   : (async () => { throw new Error('DATABASE_URL environment variable is not set. Please configure it in your Vercel project settings.'); }) as unknown as ReturnType<typeof neon>;
 
 export { sql };
