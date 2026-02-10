@@ -25,7 +25,7 @@
 	}
 
 	let filteredPrompts = $derived(
-		data.prompts.filter((prompt: any) => {
+		(data.prompts || []).filter((prompt: any) => {
 			const term = searchTerm.toLowerCase();
 			return (
 				(prompt.title || '').toLowerCase().includes(term) ||

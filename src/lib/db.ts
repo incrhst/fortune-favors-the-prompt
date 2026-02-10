@@ -139,28 +139,25 @@ export async function getCuratedPrompts(options: {
 } = {}): Promise<CuratedPrompt[]> {
   const { category, limit = 20, offset = 0, featuredOnly = false } = options;
 
-  let whereClause = 'WHERE is_hidden = false';
-  const params: any[] = [];
-
+  // Use tagged template for simpler row return
+  let prompts;
   if (category) {
-    whereClause += ` AND category = $${params.length + 1}`;
-    params.push(category);
+    prompts = await sql`
+      SELECT * FROM curated_prompts 
+      WHERE is_hidden = false AND category = ${category}
+      ORDER BY quality_score DESC, created_at DESC 
+      LIMIT ${limit} OFFSET ${offset}
+    `;
+  } else {
+    prompts = await sql`
+      SELECT * FROM curated_prompts 
+      WHERE is_hidden = false
+      ORDER BY quality_score DESC, created_at DESC 
+      LIMIT ${limit} OFFSET ${offset}
+    `;
   }
 
-  if (featuredOnly) {
-    whereClause += ` AND is_featured = true`;
-  }
-
-  // Tagged templates return rows directly, but raw query returns result object
-  const rows = await sql.query(
-    `SELECT * FROM curated_prompts 
-     ${whereClause} 
-     ORDER BY quality_score DESC, created_at DESC 
-     LIMIT ${limit} OFFSET ${offset}`,
-    params
-  );
-
-  return (rows as any).rows as CuratedPrompt[];
+  return (prompts as any) as CuratedPrompt[];
 }
 
 export async function getCuratedPromptByGistId(gistId: string): Promise<CuratedPrompt | null> {
