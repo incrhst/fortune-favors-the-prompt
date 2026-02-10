@@ -1,3 +1,4 @@
+<script lang="ts">
     import { auth } from '$lib/stores/auth';
     import { activeTab } from '$lib/stores/ui';
     import { goto } from '$app/navigation';

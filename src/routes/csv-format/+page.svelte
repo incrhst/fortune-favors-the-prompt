@@ -110,7 +110,7 @@
     }
 
     .back-link:hover {
-        color: var(--primary-color);
+        color: var(--brown-accent);
     }
 
 	h1 {
@@ -122,8 +122,8 @@
         gap: 1rem;
 	}
 
-    .title-icon {
-        color: var(--primary-color);
+    :global(.title-icon) {
+        color: var(--brown-accent);
     }
 
 	header p {
@@ -205,7 +205,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.75rem;
-		background: var(--primary-color);
+		background: var(--brown-accent);
 		color: white;
 		padding: 0.75rem 1.25rem;
 		border-radius: 0.75rem;
@@ -216,7 +216,7 @@
 
 	.download-btn:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.3);
+		box-shadow: 0 4px 12px rgba(139, 92, 46, 0.3);
 	}
 
 	.tips ul {
