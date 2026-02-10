@@ -1,9 +1,11 @@
 <script lang="ts">
     import { auth } from '$lib/stores/auth';
-    import { LogIn, LogOut, Github, User, ChevronDown } from 'lucide-svelte';
+    import { LogIn, LogOut, Github, User, ChevronDown, Bot } from 'lucide-svelte';
     import { fade, slide } from 'svelte/transition';
+    import AgentSettingsModal from './AgentSettingsModal.svelte';
 
     let isOpen = $state(false);
+    let showAgentSettings = $state(false);
 
     function toggle() {
         isOpen = !isOpen;
@@ -41,6 +43,10 @@
                         <Github size={18} />
                         Personal Gists
                     </a>
+                    <button class="dropdown-item" onclick={() => { showAgentSettings = true; close(); }}>
+                        <Bot size={18} />
+                        Agent Settings
+                    </button>
                     <a href="/auth/logout" class="dropdown-item logout">
                         <LogOut size={18} />
                         Logout

@@ -8,9 +8,9 @@ Agents should authenticate using the `X-API-Key` header.
 
 ### How to get an API Key
 1. Log in to the Favored Prompts web app.
-2. Open the browser's DevTools.
-3. Find the `session` cookie value.
-4. Use this string as your `X-API-Key`.
+2. Click on your profile/username in the top right.
+3. Select **Agent Settings**.
+4. Click **Copy Key**.
 
 > [!NOTE]
 > The API key is currently an encrypted session string that contains your GitHub access token. Keep it secret!
