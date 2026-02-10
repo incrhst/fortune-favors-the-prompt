@@ -181,7 +181,7 @@
 	header h1 {
 		font-size: 3rem;
 		margin-bottom: 0.5rem;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 	}
 
 	nav {
@@ -192,7 +192,7 @@
 
 	nav a {
 		text-decoration: none;
-		color: var(--brown-medium);
+		color: var(--text-secondary);
 		font-weight: 600;
 		padding-bottom: 0.25rem;
 		border-bottom: 2px solid transparent;
@@ -204,12 +204,25 @@
 		border-bottom-color: var(--brown-accent);
 	}
 
+	nav a:hover {
+		background: var(--brown-accent);
+		color: white !important;
+		border-radius: 8px;
+		padding: 0.5rem 1rem;
+		margin: -0.5rem -1rem;
+		border-bottom-color: transparent;
+	}
+
+	nav a.active:hover {
+		color: white !important;
+	}
+
 	.card {
-		background: white;
+		background: var(--surface-card);
 		padding: 2rem;
 		border-radius: 24px;
 		border: 1px solid var(--border-light);
-		box-shadow: 0 4px 20px rgba(44, 24, 16, 0.04);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 	}
 
 	.error-box {
@@ -240,7 +253,8 @@
 		border: 1px solid var(--border-light);
 		font-size: 1rem;
 		box-sizing: border-box;
-		background: #fdfdfc;
+		background: var(--bg-primary);
+		color: var(--text-primary);
 	}
 
 	textarea {
@@ -252,12 +266,12 @@
 	input:focus {
 		outline: none;
 		border-color: var(--brown-accent);
-		background: white;
+		background: var(--surface-card);
 	}
 
 	.ai-suggestion {
-		background: #f8f6f2;
-		border: 1px solid #ede8e0;
+		background: var(--bg-secondary);
+		border: 1px solid var(--border-medium);
 		padding: 1.5rem;
 		border-radius: 16px;
 		margin-bottom: 1.5rem;

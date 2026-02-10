@@ -26,7 +26,7 @@
         gap: 0.5rem;
         margin-bottom: 2rem;
         padding: 0.5rem;
-        background: #f5f1e8;
+        background: var(--bg-secondary);
         border-radius: 16px;
         width: fit-content;
     }
@@ -42,11 +42,11 @@
         border: none;
         transition: all 0.2s ease;
         background: transparent;
-        color: var(--brown-medium, #6b5444);
+        color: var(--text-secondary);
     }
 
     button.active {
-        background: var(--brown-accent, #8b5c2e);
+        background: var(--brown-accent);
         color: white;
     }
 </style>

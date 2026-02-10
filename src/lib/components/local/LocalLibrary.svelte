@@ -265,7 +265,7 @@
 	}
 
 	.sidebar {
-		border-right: 1px solid var(--border-light, #e5e7eb);
+		border-right: 1px solid var(--border-light);
 		padding-right: 1rem;
 	}
 
@@ -277,7 +277,7 @@
 	}
 
 	.sidebar-header h3 { margin: 0; }
-	.sidebar-header button { background: none; border: none; cursor: pointer; color: var(--brown-medium, #6b5444); }
+	.sidebar-header button { background: none; border: none; cursor: pointer; color: var(--text-secondary); }
 
 	.group-list { list-style: none; padding: 0; }
 	.group-list li {
@@ -289,55 +289,57 @@
 		align-items: center;
 		transition: background 0.2s;
 	}
-	.group-list li:hover { background-color: var(--brown-light, #f5f1e8); }
+	.group-list li:hover { background-color: var(--bg-secondary); }
 	.group-list li.active {
-		background-color: var(--brown-light, #f5f1e8);
+		background-color: var(--bg-secondary);
 		font-weight: bold;
+		color: var(--brown-accent);
 	}
 
 	.delete-btn { border: none; background: none; color: #ef4444; cursor: pointer; padding: 0; display: flex; align-items: center; }
 
-	.modal { padding: 1rem; background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-top: 1rem; }
-	.modal input { width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #ddd; border-radius: 4px; }
+	.modal { padding: 1rem; background: var(--surface-card); border: 1px solid var(--border-light); border-radius: 8px; margin-top: 1rem; }
+	.modal input { width: 100%; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px solid var(--border-light); border-radius: 4px; background: var(--bg-primary); color: var(--text-primary); }
 	.modal-actions { display: flex; gap: 0.5rem; }
-	.modal-actions button { flex: 1; padding: 0.25rem; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; }
+	.modal-actions button { flex: 1; padding: 0.25rem; cursor: pointer; border-radius: 4px; border: 1px solid var(--border-light); background: var(--bg-secondary); color: var(--text-primary); }
 
 	.toolbar { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; }
 	.search-box { flex: 1; position: relative; }
-	.search-box input { width: 100%; padding: 0.75rem 0.75rem 0.75rem 2.5rem; border-radius: 8px; border: 1px solid #ddd; }
-	.search-icon-wrapper { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #666; display: flex; }
+	.search-box input { width: 100%; padding: 0.75rem 0.75rem 0.75rem 2.5rem; border-radius: 8px; border: 1px solid var(--border-light); background: var(--surface-card); color: var(--text-primary); }
+	.search-icon-wrapper { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); display: flex; }
 
 	.btn-primary {
 		display: flex; align-items: center; gap: 0.5rem;
 		padding: 0.75rem 1.5rem;
-		background: var(--brown-dark, #2c1810);
+		background: var(--brown-dark);
 		color: white;
 		border: none;
 		border-radius: 8px;
 		cursor: pointer;
 	}
 
-	.btn-outline { padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; display: flex; align-items: center; }
+	.btn-outline { padding: 0.75rem; border: 1px solid var(--border-light); border-radius: 8px; background: var(--surface-card); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; }
 
 	.editor-card {
-		background: white; padding: 1.5rem; border-radius: 12px;
+		background: var(--surface-card); padding: 1.5rem; border-radius: 12px;
 		box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 2rem;
-		border: 1px solid var(--brown-light, #f5f1e8);
+		border: 1px solid var(--border-light);
 	}
 	.editor-card h3 { margin-top: 0; margin-bottom: 1rem; }
-	.editor-card textarea { width: 100%; min-height: 100px; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid #ddd; resize: vertical; }
+	.editor-card textarea { width: 100%; min-height: 100px; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; border: 1px solid var(--border-light); background: var(--bg-primary); color: var(--text-primary); resize: vertical; }
 	.editor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-	.editor-row input { padding: 0.6rem; border-radius: 6px; border: 1px solid #ddd; }
+	.editor-row input { padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-light); background: var(--bg-primary); color: var(--text-primary); }
 	.editor-actions { display: flex; gap: 1rem; justify-content: flex-end; }
-	.editor-actions button { padding: 0.6rem 1.2rem; background: transparent; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; }
-	.save-btn { background: var(--brown-accent, #8b5c2e) !important; color: white !important; border: none !important; }
+	.editor-actions button { padding: 0.6rem 1.2rem; background: transparent; border: 1px solid var(--border-light); border-radius: 6px; cursor: pointer; color: var(--text-primary); }
+	.save-btn { background: var(--brown-accent) !important; color: white !important; border: none !important; }
 
 	.prompt-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-	.prompt-card { position: relative; padding: 1.5rem; background: white; border: 1px solid #eee; border-radius: 12px; }
+	.prompt-card { position: relative; padding: 1.5rem; background: var(--surface-card); border: 1px solid var(--border-light); border-radius: 12px; }
 	.card-actions { position: absolute; top: 1rem; right: 1rem; display: flex; gap: 0.5rem; }
-	.card-actions button { background: none; border: none; cursor: pointer; color: #666; padding: 0.25rem; display: flex; align-items: center; }
+	.card-actions button { background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0.25rem; display: flex; align-items: center; }
 
-	.badge { margin-bottom: 1rem; display: inline-block; font-size: 0.8rem; padding: 0.25rem 0.5rem; background: #f0f0f0; border-radius: 4px; color: #444; }
-	.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; color: #666; margin-top: 1rem; }
-	.empty-state { grid-column: 1/-1; text-align: center; padding: 3rem; color: #888; }
+	.badge { margin-bottom: 1rem; display: inline-block; font-size: 0.8rem; padding: 0.25rem 0.5rem; background: var(--bg-secondary); border-radius: 4px; color: var(--text-secondary); }
+	.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; }
+	.tags span { background: var(--bg-secondary); padding: 0.2rem 0.5rem; border-radius: 4px; }
+	.empty-state { grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted); }
 </style>

@@ -172,7 +172,7 @@
 	header h1 {
 		font-size: 2.5rem;
 		margin-bottom: 0.5rem;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 	}
 
 	nav {
@@ -183,15 +183,24 @@
 
 	nav a {
 		text-decoration: none;
-		color: var(--brown-medium);
+		color: var(--text-secondary);
 		font-weight: 600;
 		padding-bottom: 0.25rem;
 		border-bottom: 2px solid transparent;
 		transition: all 0.2s ease;
 	}
 
+	nav a:hover {
+		background: var(--brown-accent);
+		color: white;
+		border-radius: 8px;
+		padding: 0.5rem 1rem;
+		margin: -0.5rem -1rem;
+		border-bottom-color: transparent;
+	}
+
 	.card {
-		background: white;
+		background: var(--surface-card);
 		padding: 2.5rem;
 		border-radius: 24px;
 		border: 1px solid var(--border-light);
@@ -208,7 +217,7 @@
 	}
 
 	.prompt-box {
-		background: #fdfaf5;
+		background: var(--bg-secondary);
 		padding: 2rem;
 		border-radius: 16px;
 		border-left: 4px solid var(--brown-accent);
@@ -218,7 +227,7 @@
 	.prompt-box p {
 		font-size: 1.25rem;
 		line-height: 1.7;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 		margin: 0;
 	}
 
@@ -230,10 +239,10 @@
 	}
 
 	.tag {
-		color: var(--brown-medium);
+		color: var(--text-secondary);
 		font-size: 0.9rem;
 		font-weight: 500;
-		background: #f5f1e8;
+		background: var(--bg-secondary);
 		padding: 0.25rem 0.75rem;
 		border-radius: 8px;
 	}
@@ -251,7 +260,7 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 0.9rem;
-		color: var(--brown-medium);
+		color: var(--text-muted);
 	}
 
 	.author {
@@ -267,7 +276,7 @@
 		align-items: center;
 		gap: 0.75rem;
 		font-size: 1.5rem;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 		margin-bottom: 2rem;
 	}
 
@@ -312,27 +321,28 @@
 
 	.author-name {
 		font-weight: 600;
-		color: var(--brown-dark);
+		color: var(--text-primary);
 		margin-bottom: 0.5rem;
 	}
 
 	.discussion-item p {
 		margin: 0;
 		line-height: 1.6;
-		color: var(--brown-medium);
+		color: var(--text-secondary);
 	}
 
 	.time {
 		display: block;
 		margin-top: 0.5rem;
 		font-size: 0.8rem;
+		color: var(--text-muted);
 	}
 
 	.comment-form-card {
-		background: #f8f6f2;
+		background: var(--bg-secondary);
 		padding: 2rem;
 		border-radius: 20px;
-		border: 1px solid #ede8e0;
+		border: 1px solid var(--border-medium);
 	}
 
 	.form-group {
@@ -354,11 +364,20 @@
 		border: 1px solid var(--border-light);
 		font-size: 1rem;
 		box-sizing: border-box;
+		background: var(--bg-primary);
+		color: var(--text-primary);
 	}
 
 	textarea {
 		min-height: 120px;
 		resize: vertical;
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: none;
+		border-color: var(--brown-accent);
+		background: var(--surface-card);
 	}
 
 	.btn-primary {

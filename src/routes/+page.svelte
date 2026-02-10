@@ -100,42 +100,38 @@
 				{#each filteredPrompts as prompt, index (prompt.id)}
 					<a
 						href="/prompt/{prompt.id}"
-						class="card animate-in"
-						style="animation-delay: {index * 0.1}s; text-decoration: none; color: inherit; cursor: pointer;"
+						class="prompt-card animate-in"
+						style="animation-delay: {index * 0.1}s;"
 					>
 						{#if prompt.category}
-							<span class="badge" style="margin-bottom: 1rem;">
+							<div class="badge">
 								{prompt.category}
-							</span>
+							</div>
 						{/if}
 
-						<h3 style="font-size: 1.1rem; margin-bottom: 0.75rem; line-height: 1.4;">
+						<h3 class="prompt-title">
 							{prompt.suggested_title || prompt.text.slice(0, 60) + '...'}
 						</h3>
 
-						<p
-							style="color: var(--brown-medium); font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1rem;"
-						>
+						<p class="prompt-text">
 							{prompt.text}
 						</p>
 
 						{#if prompt.tags && prompt.tags.length > 0}
-							<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+							<div class="tags-container">
 								{#each prompt.tags.slice(0, 3) as tag}
 									<span class="tag">#{tag}</span>
 								{/each}
 							</div>
 						{/if}
 
-						<div
-							style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border-light);"
-						>
+						<div class="card-footer">
 							<span class="meta">
 								<Clock size={14} />
 								{formatTimeAgo(prompt.created_at)}
 							</span>
-							<span class="meta" style="color: var(--brown-accent);">
-								<User size={14} style="display: inline; vertical-align: middle; margin-right: 4px;" />
+							<span class="author">
+								<User size={14} />
 								by {prompt.guest_name}
 							</span>
 						</div>
@@ -161,29 +157,40 @@
 	}
 
 	header h1 {
-		font-size: 3rem;
+		font-size: 4rem;
 		margin-bottom: 0.5rem;
-		color: var(--brown-dark);
+		color: var(--text-primary);
+		letter-spacing: -2px;
+	}
+
+	header p {
+		font-size: 1.25rem;
+		color: var(--text-secondary);
+		max-width: 600px;
 	}
 
 	nav {
 		display: flex;
-		gap: 1.5rem;
+		gap: 1rem;
 		margin-top: 1.5rem;
 	}
 
 	nav a {
 		text-decoration: none;
-		color: var(--brown-medium);
+		color: var(--text-secondary);
 		font-weight: 600;
-		padding-bottom: 0.25rem;
-		border-bottom: 2px solid transparent;
+		padding: 0.5rem 1rem;
+		border-radius: 8px;
 		transition: all 0.2s ease;
 	}
 
-	nav a.active {
-		color: var(--brown-accent);
-		border-bottom-color: var(--brown-accent);
+	nav a:hover, nav a.active {
+		background: var(--brown-accent);
+		color: white;
+	}
+
+	nav a.active:hover {
+		color: white;
 	}
 
 	.search-container {
@@ -224,37 +231,66 @@
 		gap: 1.5rem;
 	}
 
-	.card {
-		background: white;
-		padding: 1.5rem;
-		border-radius: 20px;
+	.prompt-card {
+		background: var(--surface-card);
+		border-radius: 24px;
+		padding: 2rem;
 		border: 1px solid var(--border-light);
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
+		height: 100%;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 	}
 
-	.card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 24px rgba(44, 24, 16, 0.08);
+	.prompt-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 		border-color: var(--brown-accent);
 	}
 
 	.badge {
-		background: var(--brown-light);
+		background: var(--bg-secondary);
 		color: var(--brown-accent);
 		padding: 0.4rem 0.8rem;
 		border-radius: 100px;
 		font-size: 0.8rem;
 		font-weight: 600;
 		width: fit-content;
+		margin-bottom: 1.5rem;
+	}
+
+	.prompt-title {
+		font-size: 1.25rem;
+		margin-bottom: 0.75rem;
+		line-height: 1.4;
+		color: var(--text-primary);
+	}
+
+	.prompt-text {
+		font-size: 1rem;
+		color: var(--text-secondary);
+		line-height: 1.6;
+		margin-bottom: 1.5rem;
+		flex-grow: 1;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.tags-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.tag {
-		color: var(--brown-medium);
+		color: var(--text-muted);
 		font-size: 0.85rem;
 		font-weight: 500;
-		background: #f8f5f0;
+		background: var(--bg-secondary);
 		padding: 0.2rem 0.6rem;
 		border-radius: 6px;
 	}
@@ -265,6 +301,33 @@
 		gap: 0.4rem;
 		font-size: 0.85rem;
 		color: var(--brown-medium);
+	}
+
+	.card-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border-light);
+	}
+
+	.author {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-secondary);
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.view-link {
+		color: var(--brown-accent);
+		font-weight: 600;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.9rem;
 	}
 
 	.animate-in {
