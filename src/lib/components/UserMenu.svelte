@@ -73,7 +73,7 @@
         gap: 0.75rem;
         padding: 0.5rem 0.75rem;
         background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border-medium);
         border-radius: 9999px;
         color: var(--text-primary);
         cursor: pointer;
@@ -82,22 +82,22 @@
     }
 
     .user-profile-button:hover {
-        background: var(--bg-hover);
-        border-color: var(--primary-color);
+        background: var(--border-light);
+        border-color: var(--brown-accent);
     }
 
     .avatar {
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
-        background: var(--bg-tertiary);
+        background: var(--border-medium);
     }
 
     .avatar-placeholder {
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
-        background: var(--bg-tertiary);
+        background: var(--border-medium);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -124,18 +124,18 @@
         align-items: center;
         gap: 0.75rem;
         padding: 0.5rem 1.25rem;
-        background: var(--primary-color);
+        background: var(--brown-accent);
         color: white;
         border-radius: 9999px;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.2s;
-        box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.3);
+        box-shadow: 0 4px 12px rgba(139, 92, 46, 0.2);
     }
 
     .login-button:hover {
         transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(var(--primary-color-rgb), 0.4);
+        box-shadow: 0 6px 16px rgba(139, 92, 46, 0.3);
         filter: brightness(1.1);
     }
 
@@ -154,9 +154,9 @@
         right: 0;
         width: 220px;
         background: var(--bg-primary);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border-medium);
         border-radius: 1rem;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         z-index: 101;
         overflow: hidden;
     }
@@ -183,7 +183,7 @@
 
     .dropdown-divider {
         height: 1px;
-        background: var(--border-color);
+        background: var(--border-medium);
     }
 
     .dropdown-item {
@@ -198,7 +198,7 @@
     }
 
     .dropdown-item:hover {
-        background: var(--bg-hover);
+        background: var(--bg-secondary);
     }
 
     .dropdown-item.logout {

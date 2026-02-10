@@ -114,7 +114,7 @@
 
     .modal-content {
         background: var(--bg-primary);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border-medium);
         border-radius: 1.5rem;
         width: 100%;
         max-width: 500px;
@@ -127,7 +127,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 1.5rem;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-medium);
         background: var(--bg-secondary);
     }
 
@@ -160,7 +160,7 @@
     }
 
     .close-button:hover {
-        background: var(--border-color);
+        background: var(--border-light);
         color: var(--text-primary);
     }
 
@@ -192,7 +192,7 @@
         background: var(--bg-secondary);
         padding: 0.5rem;
         border-radius: 0.75rem;
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--border-medium);
         align-items: center;
     }
 
@@ -235,7 +235,7 @@
 
     .divider {
         height: 1px;
-        background: var(--border-color);
+        background: var(--border-medium);
         margin-bottom: 1.5rem;
     }
 
@@ -257,7 +257,7 @@
         justify-content: center;
         width: 1.5rem;
         height: 1.5rem;
-        background: var(--bg-tertiary);
+        background: var(--border-light);
         color: var(--text-secondary);
         border-radius: 50%;
         font-size: 0.75rem;
@@ -281,7 +281,7 @@
     }
 
     code {
-        background: var(--bg-tertiary);
+        background: var(--border-light);
         padding: 0.125rem 0.25rem;
         border-radius: 4px;
         font-size: 0.75rem;
