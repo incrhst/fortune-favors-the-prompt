@@ -114,6 +114,7 @@
 
     .modal-content {
         background: var(--bg-primary);
+        color: var(--text-primary);
         border: 1px solid var(--border-medium);
         border-radius: 1.5rem;
         width: 100%;
@@ -129,6 +130,7 @@
         padding: 1.5rem;
         border-bottom: 1px solid var(--border-medium);
         background: var(--bg-secondary);
+        color: var(--text-primary);
     }
 
     .title-group {

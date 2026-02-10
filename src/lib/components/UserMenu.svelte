@@ -1,5 +1,6 @@
-<script lang="ts">
     import { auth } from '$lib/stores/auth';
+    import { activeTab } from '$lib/stores/ui';
+    import { goto } from '$app/navigation';
     import { LogIn, LogOut, Github, User, ChevronDown, Bot } from 'lucide-svelte';
     import { fade, slide } from 'svelte/transition';
     import AgentSettingsModal from './AgentSettingsModal.svelte';
@@ -13,6 +14,12 @@
 
     function close() {
         isOpen = false;
+    }
+
+    function navigateToLibrary() {
+        activeTab.set('local');
+        goto('/');
+        close();
     }
 </script>
 
@@ -39,10 +46,10 @@
                         <p class="role">GitHub Contributor</p>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a href="/library" class="dropdown-item" onclick={close}>
+                    <button class="dropdown-item" onclick={navigateToLibrary}>
                         <Github size={18} />
                         Personal Gists
-                    </a>
+                    </button>
                     <button class="dropdown-item" onclick={() => { showAgentSettings = true; close(); }}>
                         <Bot size={18} />
                         Agent Settings
