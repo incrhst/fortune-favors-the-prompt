@@ -3,9 +3,9 @@ import {
     CallToolRequestSchema,
     ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import { GistService } from "./services/gist";
+import { GistService } from "$lib/services/gist";
 
-export function createMCPServer() {
+export function createMCPServer(user: any) {
     const server = new Server(
         {
             name: "favored-prompts",
@@ -54,18 +54,21 @@ export function createMCPServer() {
     /**
      * Tool handlers
      */
-    server.setRequestHandler(CallToolRequestSchema, async (request, extra) => {
+    server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const { name, arguments: args } = request.params;
-        const user = (extra as any).user;
 
-        if (!user || !user.accessToken) {
+        if (!user || (!user.accessToken && !user.token)) {
+            // Depending on how user object is structured in hooks.server.ts
             return {
                 isError: true,
                 content: [{ type: "text", text: "Unauthorized: No valid session or API key provided." }],
             };
         }
 
-        const gistService = new GistService(user.accessToken);
+        // Ensure we have an access token. In hooks.server.ts it's called accessToken.
+        const accessToken = user.accessToken || user.token;
+
+        const gistService = new GistService(accessToken);
 
         try {
             if (name === "list_prompts") {
